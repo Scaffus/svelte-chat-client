@@ -12,7 +12,7 @@
     $: showPrivateConversationModal = false;
     $: private_conversation_target = "";
 
-    const server = io("http://82.121.191.12:3000", {
+    const server = io("http://192.168.1.28:3000", {
         transports: ["websocket"],
     });
 
