@@ -1,26 +1,16 @@
 <script>
-    import { arrayUnion, doc } from "firebase/firestore";
-
-    import { user } from "rxfire/auth";
-
-    import { db, auth, googleProvider } from "./firebase";
+    import { auth, googleProvider } from "./firebase";
 
     function login() {
-        auth.signInWithPopup(googleProvider).then((u) => {
-            db.collection("users")
-                .doc(u.user.uid)
-                .update({
-                    groups: arrayUnion("TcxPjU7aTXB0A929JEaK"),
-                    uid: u.user.uid,
-                });
-        });
+        auth.signInWithPopup(googleProvider);
     }
 </script>
 
-<section class="section is-large column is-one-third is-offset-one-third">
+<section class="column is-two-fifths is-offset-one-third">
     <div class="card ">
         <div class="card-header">
             <p class="card-header-title">Login</p>
+            <span class="card-header-icon"> 👤 </span>
         </div>
         <div class="card-content">
             <div class="column is-half is-offset-one-quarter">
