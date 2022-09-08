@@ -1,4 +1,8 @@
 import { writable } from 'svelte/store';
 
+export let groupsMessages = {};
 export const messages = writable([]);
-export const groups = writable([]);
+
+export function setGroupsMessages(messages) {
+    groupsMessages = messages;
+}

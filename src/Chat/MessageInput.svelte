@@ -5,13 +5,19 @@
     let message;
 
     function sendMessage() {
-        dispatch("send-message", message);
+        if (message == "") return;
+        if (dispatch("send-message", message)) message = "";
     }
 </script>
 
 <div class="field has-addons">
     <div class="control is-expanded">
-        <input type="text" class="input p-2" bind:value={message} />
+        <input
+            type="text"
+            class="input p-2"
+            on:keypress={(e) => (e.key == "Enter" ? sendMessage() : null)}
+            bind:value={message}
+        />
     </div>
     <div class="control">
         <button class="button is-primary" on:click={sendMessage}>Send</button>

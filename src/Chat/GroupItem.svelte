@@ -1,15 +1,16 @@
 <script>
-    import { db } from "../firebase";
-    import { doc } from "rxfire/firestore";
-    import { writable } from "svelte/store";
+    import { createEventDispatcher } from 'svelte/internal'
+
+    const dispatch = createEventDispatcher()
 
     export let groupId;
     export let groupData;
+
+    groupData.id = groupId
 </script>
 
-<div class="card-content p-0">
-    <img src="" alt="" />
-    <button class="button is-fullwidth">
+<div class="panel-block">
+    <button class="button is-fullwidth" on:click={() => dispatch('switch-to-group', groupData)}>
         {groupData.name}
     </button>
 </div>

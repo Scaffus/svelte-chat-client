@@ -1,17 +1,24 @@
 <script>
-    import { arrayUnion, doc } from "firebase/firestore";
-
-    import { user } from "rxfire/auth";
-
+    import { arrayUnion } from "firebase/firestore";
     import { db, auth, googleProvider } from "./firebase";
 
     function login() {
         auth.signInWithPopup(googleProvider).then((u) => {
-            db.collection("users")
-                .doc(u.user.uid)
-                .update({
-                    groups: arrayUnion("TcxPjU7aTXB0A929JEaK"),
-                    uid: u.user.uid,
+            const userDoc = db.collection("users").doc(u.user.uid)
+                userDoc.get().then((doc) => {
+                    if (doc.exists) {
+                        db.collection("users")
+                            .doc(u.user.uid)
+                            .update({
+                                groups: arrayUnion("default"),
+                                uid: u.user.uid,
+                            });
+                    } else {
+                        userDoc.set({
+                            groups: ["default"],
+                            uid: u.user.uid,
+                        });
+                    }
                 });
         });
     }
